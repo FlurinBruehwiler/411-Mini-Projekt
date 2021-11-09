@@ -6,7 +6,7 @@ public class Solver {
   public int[][] solve(int[] clues) {
     matrix = new Matrix(clues);
     try {
-      Position startPosition = matrix.getInitPosition();
+      Position startPosition = new Position(0,0);
       if (calculatePosition(startPosition)){
         return matrix.matrix;
       } 
@@ -22,15 +22,13 @@ public class Solver {
     Set<Integer> possibleValues = matrix.getPossibleValuesForPosition(position);
     for (Integer possibleValue : possibleValues) {
       matrix.setValueForPosition(position, possibleValue);
-      try {
-        Position nextPosition = matrix.getNextPosition(position);
-        if(calculatePosition(nextPosition))
-          return true;
-        else
-          matrix.setValueForPosition(position, 0);
-      } catch (Exception e){ 
+      
+      Position nextPosition = matrix.getNextPosition(position);
+      if(calculatePosition(nextPosition))
         return true;
-      }
+      else
+        matrix.setValueForPosition(position, 0);
+      
     }
     return false;
   }

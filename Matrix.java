@@ -18,8 +18,8 @@ class Matrix {
   }
 
   void setValueForPosition(Position position, int value) {
-    int x = position.getX();
-    int y = position.getY();
+    int x = position.x;
+    int y = position.y;
     setValueForPosition(x, y, value);
     verticalLines[x].line[y] = value; 
     horizontalLines[y].line[x] = value; 
@@ -29,34 +29,24 @@ class Matrix {
     matrix[y][x] = value; 
   }
 
-  Position getInitPosition() throws Exception {
-    Position position = new Position(0,0);
-    if (getValueForPosition(0,0) != 0){
-      position = getNextPosition(position);
-    } 
-    return position;  
-  }
-
-  Position getNextPosition(Position position) throws Exception {
-    int x = position.getX();
-    int y = position.getY();
+  Position getNextPosition(Position position){
+    int x = position.x;
+    int y = position.y;
     do {
-      if (x == 3)
-        if (y == 3)
-          throw new Exception();
-        else {
-          x = 0;
-          y++;
-        }
-      else
+      if (x == 3){
+        x = 0;
+        y++;
+      }  
+      else{
         x++;
+      }
     } while (getValueForPosition(x,y) != 0);
     return new Position(x,y);
   }
 
   Set<Integer> getPossibleValuesForPosition(Position position) {
-    int x = position.getX();
-    int y = position.getY();
+    int x = position.x;
+    int y = position.y;
     Set<Integer> possibleValues = new HashSet<>();
     Set<Integer> possibleValuesForHorizontalLine = horizontalLines[y].getPossibleValuesForPosition(x); 
     Set<Integer> possibleValuesForVerticalLine = verticalLines[x].getPossibleValuesForPosition(y);

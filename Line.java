@@ -25,8 +25,6 @@ class Line {
   }
 
   Set<Integer> getPossibleValuesForPosition(Integer positionInLine) {
-    if(line[positionInLine] != 0)
-      throw new IllegalArgumentException();
     Set<Integer> alreadyPlacedValues = getAlreadyPlacedValues(positionInLine);
     Set<Integer> possibleValues = IntStream.rangeClosed(1, 4).boxed().collect(Collectors.toSet());
     possibleValues.removeAll(alreadyPlacedValues); 
