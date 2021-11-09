@@ -1,34 +1,30 @@
 import java.util.Set;
 
-public class SkyScrapers {
-  static int[][] solvePuzzle (int[] clues) {
-    return new SkyScrapers().solve(clues);
-  }
-
+public class Solver {
   private Table table;
 
-  private int[][] solve(int[] clues) {
+  public int[][] solve(int[] clues) {
     table = new Table(clues);
     try {
-      Position initPosition = table.getInitPosition();
-      if (iter(initPosition)){
+      Position startPosition = table.getInitPosition();
+      if (calculatePosition(startPosition)){
         return table.table;
       } 
       else {
-        throw new RuntimeException("no solution");
+        return null;
       }
     }catch (Exception e) { 
       return table.table; 
     }
   }
 
-  private boolean iter(Position position) {
+  private boolean calculatePosition(Position position) {
     Set<Integer> possibleValues = table.getPossibleValuesForPosition(position);
     for (Integer possibleValue : possibleValues) {
       table.setValueForPosition(position, possibleValue);
       try {
         Position nextPosition = table.getNextPosition(position);
-        if(iter(nextPosition))
+        if(calculatePosition(nextPosition))
           return true;
         else
           table.setValueForPosition(position, 0);
