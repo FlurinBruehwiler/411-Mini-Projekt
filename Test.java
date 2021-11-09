@@ -1,4 +1,8 @@
-import javax.sound.sampled.SourceDataLine;
+/**
+ * Datum: 11.9.2021
+ * Author: Flurin Brühwiler, Henrik Fäh
+ */
+
 
 public class Test {
     public static void main(String[] args) {
@@ -17,11 +21,18 @@ public class Test {
 
         for(int i = 0; i < clues.length; i++){
             var result = solver.solve(clues[i]);
+            if(result == null){
+                continue;
+            }
             printResult(result);
         }
 
     }
 
+    /**
+     * Description: Prints a result to to console
+     * @param result
+     */
     static void printResult(int[][] result){
         System.out.println("--------------------");
         for(int i = 0; i < result.length; i++){

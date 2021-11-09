@@ -1,3 +1,8 @@
+/**
+ * Datum: 11.9.2021
+ * Author: Flurin Brühwiler, Henrik Fäh
+ */
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,6 +22,10 @@ class Line {
     resolveInitClues();
   }
 
+
+  /**
+   * Description: Solves the easy fields
+   */
   private void resolveInitClues() {
     if (topClue == 1) line[0] = 4;
     if (bottomClue == 1) line[3] = 4;
@@ -24,6 +33,11 @@ class Line {
     if (bottomClue == 4) IntStream.range(0, 4).forEach(i -> line[3-i] = i + 1);
   }
 
+  /**
+   * Description: get all Possible values for a certain position in the line
+   * @param positionInLine
+   * @return
+   */
   Set<Integer> getPossibleValuesForPosition(Integer positionInLine) {
     Set<Integer> alreadyPlacedValues = getAlreadyPlacedValues(positionInLine);
     Set<Integer> possibleValues = IntStream.rangeClosed(1, 4).boxed().collect(Collectors.toSet());
@@ -32,6 +46,12 @@ class Line {
     return possibleValues;
   }
 
+  /**
+   * Description: checks if the value can be insertet at a given position
+   * @param valueToTest
+   * @param position
+   * @return
+   */
   private boolean isCompatibleWithClues(Integer valueToTest, int position) {
     line[position] = valueToTest;
     boolean result = true;
@@ -40,10 +60,18 @@ class Line {
     return result;
   }
 
+  /**
+   * Description: checks if a line is complete
+   * @return
+   */
   private boolean isComplete() {
     return IntStream.range(0, 4).allMatch(i -> line[i] != 0);
   }
 
+  /**
+   * Description: checks if the line is compatible with the clues
+   * @return
+   */
   private boolean isCompatibleWithClues() {
     boolean isNotCompatibleWithClues = 
       (allNonInitClues.contains(topClue) && getNumberOfSkyCrapersOnLine(true) != topClue) ||
@@ -51,6 +79,11 @@ class Line {
     return !isNotCompatibleWithClues;
   }
 
+  /**
+   * Descriptioon: counts the visible skyscrapers
+   * @param isAscending
+   * @return
+   */
   private int getNumberOfSkyCrapersOnLine(boolean isAscending) {
     int result = 0;
     int maxValue = 0;
@@ -64,6 +97,11 @@ class Line {
     return result;
   }
 
+  /**
+   * Description: gets all the values in a line
+   * @param positionInLine
+   * @return
+   */
   private Set<Integer> getAlreadyPlacedValues(int positionInLine) {
     Set<Integer> alreadyPlacedValues = new HashSet<Integer>();
     for (int i = 0 ; i < 4 ; i ++) {
